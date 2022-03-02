@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Send Message</title>
+        <link rel="stylesheet" href="style.css" />
+
+        <script type="text/javascript">
+            if (document.cookie.indexOf("webhook_url") == -1) {
+                window.location = "webhook_url.html";
+            }
+        </script>
+    </head>
+
+    <body>
+        <form id="form_section" action="javascript:sendMessage()" autocomplete="off">
+            <label for="webhook_username">Webhook Username</label>
+            <input type="text" id="webhook_username" placeholder="Leave Empty for Unspecified" />
+            <label for="webhook_avatar_url">Avatar Url</label>
+            <a id="open_avatar_preview">
+                <img id="avatar_preview" onerror="image_error()" style="max-width: 128px; width: 100%; display: none" />
+                <p id="error_message" style="display: none"></p>
+            </a>
+            <input type="text" id="webhook_avatar_url" onchange="show_avatar_preview()" placeholder="Leave Empty for Default Avatar" />
+            <label for="webhook_message">Message</label>
+            <input type="text" id="webhook_message" placeholder="Send a Message (Required Without File)" autofocus />
+            <div class="file_handling">
+                <label id="file-selector" for="webhook_file" title="Select a File (Not Required)">Select a File</label>
+                <input type="file" id="webhook_file" onchange="show_selected_file_name()" />
+                <p id="show_selected_file" style="display: none"></p>
+                <button id="remove_file" onclick="remove_selected_file()" title="Remove Selected File">Remove Selected File</button>
+            </div>
+            <p id="submit_message"></p>
+            <button id="send" title="Send The Message">Send</button>
+        </form>
+
+        <script type="text/javascript" src="script.js"></script>
+
+        <div class="change_webhook">
+            <button id="change_button" onclick="change_webhook()">Change Webhook</button>
+        </div>
+    </body>
+</html>
