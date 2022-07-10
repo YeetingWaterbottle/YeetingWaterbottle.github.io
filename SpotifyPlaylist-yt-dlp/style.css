@@ -11,6 +11,10 @@ h1 {
     font-size: 2rem;
 }
 
+h3 {
+    text-align: center;
+}
+
 input {
     padding: 1rem;
     margin: 1rem;
@@ -18,6 +22,11 @@ input {
     background-color: rgb(236, 219, 186);
     border: none;
     border-radius: 10px;
+    font-size: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 a {
@@ -29,7 +38,8 @@ pre,
 code {
     max-width: max-content;
     font-size: 1rem;
-    margin-left: 3rem;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 2.5rem;
     padding-right: 2.5rem;
     background-color: rgb(81, 85, 126);
