@@ -1,14 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Spotify Playlist to yt-dlp</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
-    <script src='script.js' defer></script>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Spotify Playlist to yt-dlp</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <h1>Download Spotify Playlist Songs From Youtube Music Through <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a></h1>
+        <h3>Step 1. Open Your Spotify Playlist in a Web Browser.</h3>
+        <h3>Step 2. Scroll Through the Playlist a Little Bit to Make Sure the Songs Are Easier to Load In.</h3>
+        <h3>Step 3. Open the Console With CTRL + Shift + J, Then Paste in the Code Below.</h3>
+        <pre><code>
+// Just a Heads Up, Sphetti Code. 
+let songs = []; // make an array to store all the songs and artists
+let total_songs = document.querySelector('meta[property="music:song_count"]').content;
+let index = 1;
+
+function remove_explicit() {
+    for (let explicit of document.querySelectorAll("[title='Explicit']")) { // find all Explicit tags in spotify playlist
+        explicit.remove(); // remove all Explicit tags, needed to be remove for getting the song info
+    }
+}
+
+function scroll() {
+    document.querySelector(`[aria-rowindex="${index}"]`).scrollIntoView(true); // scroll through the playlist to load all the songs
+}
+
+function add() {
+    remove_explicit();
+    index += 1; // moves to the next song
+    let song_info = document.querySelector(`[aria-rowindex="${index}"]`).innerText.split("\n")
+    songs.push([song_info[1], song_info[2]]); // add song information to array
+    scroll();
+}
+
+for (let i = 0; i <= total_songs - 1; i++) {
+    setTimeout(add, i * 10); // IMPORTANT, if the speed of the scrolling is too fast, please adjust the number "10", eg. i * 20
+}
+
+// Output: [["Song A", "Artist A"], ["Song B", "Artist B"], ["Song C", "Artist C"]]
+        </code></pre>
+        <h3>After the Code Above Finish Running, Paste in the Code Below. If There's Any Errors, Please Refresh the Page and Try Again.</h3>
+        <pre><code>
+prompt("Copy to clipboard: Ctrl+C And Paste into Site", JSON.stringify(songs)); // open a small window for you to copy
+        </code></pre>
+        <h3>Step 4. Paste in the List of Songs Generated From the Script Above.</h3>
+        <input type="text" id="song_info" />
+    </body>
 </html>

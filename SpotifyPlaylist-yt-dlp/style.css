@@ -1,0 +1,37 @@
+body {
+    font-family: Roboto, arial, sans-serif;
+    background-color: rgb(25, 25, 25);
+    color: white;
+}
+
+h1 {
+    /* color: rgb(233, 166, 166); */
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+input {
+    padding: 1rem;
+    margin: 1rem;
+    text-align: center;
+    background-color: rgb(236, 219, 186);
+    border: none;
+    border-radius: 10px;
+}
+
+a {
+    color: rgb(83, 126, 197);
+    text-decoration: none;
+}
+
+pre,
+code {
+    max-width: max-content;
+    font-size: 1rem;
+    margin-left: 3rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    background-color: rgb(81, 85, 126);
+    border-radius: 10px;
+}
