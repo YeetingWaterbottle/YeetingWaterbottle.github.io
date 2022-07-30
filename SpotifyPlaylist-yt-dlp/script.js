@@ -14,7 +14,10 @@ function download(filename, text) {
 function load_songs(songs) {
     let result = "";
     let song_num = 1;
-    let base_url = "https://music.youtube.com/search?q=";
+    // important, music.youtube.com will not download if the result is music video
+    // youtube.com will download the first result which could be a music video
+    // let base_url = "https://music.youtube.com/search?q=";
+    let base_url = "https://youtube.com/search?search_query=";
     for (let song_info of JSON.parse(songs)) {
         // song_info[0] -> Song Name
         // song_info[1] -> Artists
