@@ -12,12 +12,20 @@
         <h1>Download Spotify Playlist Songs From Youtube Music Through <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a></h1>
         <h3>Step 1. Open Your Spotify Playlist in a Web Browser.</h3>
         <h3>Step 2. Scroll Through the Playlist a Little Bit to Make Sure the Songs Are Easier to Load In.</h3>
-        <h3>Step 3. Open the Console With CTRL + Shift + J, Then Paste in the Code Below.</h3>
+        <h3>Step 3. Open the Console With <kbd>CTRL</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>, Then Paste in the Code Below.</h3>
         <pre><code>
 // Just a Heads Up, Sphetti Code. 
 let songs = []; // make an array to store all the songs and artists
-let total_songs = document.querySelector('meta[property="music:song_count"]').content;
+let total_songs = ""
+try {
+    total_songs = document.querySelector('meta[property="music:song_count"]').content; // get number of song in playlist
+}
+catch(error) {
+    total_songs = document.querySelector('meta[property="og:description"]').content.split("·").slice(-1)[0].split(" ")[1]; // get number of songs from an album
+} // most albums should should, but the ones with multiple disks wont
 let index = 1;
+
+document.getElementsByClassName("contentSpacing")[0].scrollIntoView(true); // scroll to the top of the page
 
 function remove_explicit() {
     for (let explicit of document.querySelectorAll("[title='Explicit']")) { // find all Explicit tags in spotify playlist
@@ -32,7 +40,7 @@ function scroll() {
 function add() {
     remove_explicit();
     index += 1; // moves to the next song
-    let song_info = document.querySelector(`[aria-rowindex="${index}"]`).innerText.split("\n")
+    let song_info = document.querySelector(`[aria-rowindex="${index}"]`).innerText.split("\n");
     songs.push([song_info[1], song_info[2]]); // add song information to array
     scroll();
 }
@@ -43,11 +51,16 @@ for (let i = 0; i <= total_songs - 1; i++) {
 
 // Output: [["Song A", "Artist A"], ["Song B", "Artist B"], ["Song C", "Artist C"]]
         </code></pre>
-        <h3>After the Code Above Finish Running, Paste in the Code Below. If There's Any Errors, Please Refresh the Page and Try Again.</h3>
+        <h3>After the Code Above Finish Running, Paste in the Code Below. If There's Any Errors, Please Paste in the Code Again.</h3>
         <pre><code>
 prompt("Copy to clipboard: Ctrl+C And Paste into Site", JSON.stringify(songs)); // open a small window for you to copy
         </code></pre>
         <h3>Step 4. Paste in the List of Songs Generated From the Script Above.</h3>
-        <input type="text" id="song_info" />
+        <form action="javascript:get_song();">
+            <input type="text" id="song_info" />
+            <button type="submit">Submit</button>
+        </form>
+        <h3 id="instructions" style="display: none;">Download the Text File the site generated, run the yt-dlp command below in the same directory.</h3>
+        <pre><code id="yt-dlp_command" style="display: none;"></code></pre>
     </body>
 </html>
