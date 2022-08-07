@@ -9,11 +9,13 @@
     </head>
     <body>
         <h1>Download Spotify Playlist Songs From Youtube Music Through <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a></h1>
+        <h4>If You Want Square Thumbnails, Install <a href="https://ffmpeg.org/">ffmpeg</a> and Add the Program to System Path Variable</h4>
         <h3>Step 1. Open Your Spotify Playlist in a Web Browser.</h3>
-        <h3>Step 2. Scroll Through the Playlist a Little Bit to Make Sure the Songs Are Easier to Load In.</h3>
-        <h3>Step 3. Scroll Back Up to the First Song of the Playlist.</h3>
-        <h3>Step 4. Open the Console With <kbd>CTRL</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> or Through Inspect Element, Then Paste in the Code Below.</h3>
-        <h4>The Code Below Will Move Through the Playlist and Scrape the Songs Inside the Playlist, Without Having to Login to a Spotify Account.</h4>
+        <h3>Step 2. Scroll Through the Playlist a Little Bit to Make the Songs Easier to Load In. (Helps Very Long Playlists)</h3>
+        <h3>Step 3. Scroll Back Up to the First Song of the Playlist. (Optional)</h3>
+        <h3>Step 4. Open the Console With <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> or Through Inspect Element, Then Paste in the Code Below.</h3>
+        <h4>The Code Below Will Move Through the Playlist and Scrape the Songs Inside the Playlist, Without Having to Login to a Spotify Account and Use an API.</h4>
+        <h4>The Code Will Probably Break After an UI Update or Something Like That</h4>
         <pre><code>
 // Sphetti Code Ahead.
 let songs = []; // make an array to store all the songs and artists
@@ -54,50 +56,34 @@ setTimeout(() => {
 
 // Output: [["Song A", "Artist A"], ["Song B", "Artist B"], ["Song C", "Artist C"]]
         </code></pre>
-        <br>
+        <br />
         <h3>Step 5. After the Code Above Finish Running, Paste in the Code Below. If There's Any Errors, Please Paste in the Code Again.</h3>
         <pre><code>
-function download(filename, text) { // function to download a file
-    let element = document.createElement("a");
-    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
-    element.setAttribute("download", filename);
-
-    element.style.display = "none";
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-}
-
-function load_songs(songs) { // process the scraped songs
-    let result = "";
-    let song_num = 1;
-    // this will generate the download links
-    let base_url = "https://music.youtube.com/search?q="";
-    for (let song_info of JSON.parse(songs)) {
-        // song_info[0] -> Song Name
-        // song_info[1] -> Artist(s) on Song
-        result += `#${song_num}. ${song_info[0]} - ${song_info[1]}` + "\n";
-        result += base_url + encodeURIComponent(`${song_info[0]} ${song_info[1]}&sp=EgWKAQIIAWoKEAMQBBAJEAoQBQ%3D%3D`) + "\n"; // the parameter &sp=EgW... will only search for songs
-        song_num += 1;
-    }
-    return result;
-}
-
-download("songs.txt", load_songs(JSON.stringify(songs)));            
+// opens a new tab to let user copy all the songs
+let newTab = window.open();
+newTab.document.body.innerHTML = JSON.stringify(songs);
         </code></pre>
-        <br>
-        <h3>Step 6. Use the Commnad Below or a Python Script I Made to Download These Songs. (Make Sure the songs.txt Is in the Same Directory)</h3>
-
-        <h4>Option 1. Downloads All the Songs One by One, It's Very Slow Since It Will Download the Next Song Only After the One Before Finish Downloading.</h4>
-        <pre><code>
-yt-dlp -a songs.txt -fbestaudio --extract-audio --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata -o "%(title)s - %(artist)s.%(ext)s" --playlist-items 1 --ppa "ffmpeg: -c:v mjpeg -vf crop=\"'if(gt(ih,iw),iw,ih)':'if(gt(iw,ih),ih,iw)'\""
-        </code></pre>
-        <h4>Option 2. Use The Script Below, Uses multi threading to make the download faster</h4>
-        <pre><code>
-<a href="download.py" id="download_script"><strong>download.py</strong></a>
-        </code></pre>
+        <br />
+        <h3>Step 6. The Python Script Below Will Search These Songs on Youtube Music And Download Them With yt-dlp.</h3>
+        <h4>Uses Multi-Threading to Make The Process Faster</h4>
+        <p align="center">
+            <a href="download.py" id="download_script"><strong>download.py</strong></a>
+        </p>
         <h4>Modify This Script However You Want, Maybe Even Make a Better One.</h4>
+        <br>
+        <h3>Some Parameters and What it Does</h4>
+        <pre><code>
+For Detailed Explinations, go to <a href="https://github.com/yt-dlp/yt-dlp">https://github.com/yt-dlp/yt-dlp</a>
+-fbestaudio           download song with the best audio
+--extract-audio       extract the audio from the video (duh)
+--audio-format        encode audio into different file formats (mp3, flac, wav, etc.)
+--audio-quality       the number after this parameter will determine the audio quality. 0 being the best, 10 being the worst.
+--embed-thumbnail     embed thumbnail to audio file (this does not work with file types like wav)
+--add-metadata        adds metadata like song name, artist name, album name, etc.
+-o                    output template
+--playlist-items      this will limit how many songs will download, in this script it will only download the top result
+--ppa "Emb...         this will crop the album cover into a square one
+        </code></pre>
+
     </body>
 </html>
