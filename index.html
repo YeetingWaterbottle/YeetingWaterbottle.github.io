@@ -2,15 +2,135 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Devin Wang</title>
+    <meta name="description" content="Devin Wang - Computer Science student at UC San Diego. Security, Linux systems, and Android internals.">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1f2328;
+            --muted: #59636e;
+            --border: #d1d9e0;
+            --accent: #1f4e8c;
+            --card: #f6f8fa;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0d1117;
+                --text: #e6edf3;
+                --muted: #9198a1;
+                --border: #30363d;
+                --accent: #6ea8fe;
+                --card: #151b23;
+            }
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+        }
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 20px 72px;
+        }
+        h1 { font-size: 2rem; margin: 0 0 4px; }
+        h2 {
+            font-size: 1.1rem;
+            margin: 48px 0 16px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+        h3 { font-size: 1rem; margin: 0; }
+        p { margin: 0 0 12px; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .tagline { color: var(--muted); margin-bottom: 16px; }
+        .links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+        }
+        .project-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+        .tech { color: var(--muted); font-size: 0.85rem; }
+        .project p { margin: 0; }
+        .small-list { padding-left: 20px; margin: 0; }
+        .small-list li { margin-bottom: 6px; }
+        footer { margin-top: 56px; color: var(--muted); font-size: 0.85rem; }
+    </style>
 </head>
 <body>
-    <h1>Projects</h1>
-    <ul>
-        <li><a href="DiscordWebhook/index.html">Send Messages Through Discord Webhook</a></li>
-        <li><a href="SpotifyPlaylist-yt-dlp/index.html">Download Spotify Playlist With yt-dlp</a></li>
+<main>
+    <h1>Devin Wang</h1>
+    <p class="tagline">Computer Science student at UC San Diego (Class of 2029). I like figuring out how systems work underneath: Linux servers, Android internals, and web security.</p>
+    <div class="links">
+        <a href="https://github.com/YeetingWaterbottle">GitHub</a>
+        <a href="mailto:dew022@ucsd.edu">dew022@ucsd.edu</a>
+        <a href="https://xdaforums.com/t/magisk-module-app-oneplus-stylo-2-global-haptic-feedback.4758335/">XDA writeup</a>
+    </div>
+
+    <h2>Projects</h2>
+
+    <div class="project">
+        <div class="project-head">
+            <h3><a href="https://github.com/YeetingWaterbottle/stylo2-haptics">Stylo2 Haptics</a></h3>
+            <span class="tech">Kotlin, Android AIDL, Magisk</span>
+        </div>
+        <p>Magisk module and companion app that enable OnePlus Stylo 2 haptic feedback in every app. Installs the app as a privileged system app so it can bind to OnePlus's stylus service the same way the stock Notes app does.</p>
+    </div>
+
+    <div class="project">
+        <div class="project-head">
+            <h3><a href="https://github.com/YeetingWaterbottle/c0mpiled-5">Page Assistant</a></h3>
+            <span class="tech">Chrome extension, Node.js, Fastify, Gemini API</span>
+        </div>
+        <p>Built in a team of two at the c0mpiled-5/ucsd: Future Interfaces hackathon. A Chrome extension that rewrites a web page around the reader's role, goals, and expertise level, using a structured output schema so every result has the same shape.</p>
+    </div>
+
+    <div class="project">
+        <div class="project-head">
+            <h3><a href="https://github.com/YeetingWaterbottle/SCNotify">SCNotify</a></h3>
+            <span class="tech">Python, BeautifulSoup, Discord webhooks</span>
+        </div>
+        <p>Watches a school grade portal that has no notifications, compares snapshots of each student's assignments, and posts new grades, comments, and due-date changes to Discord.</p>
+    </div>
+
+    <div class="project">
+        <div class="project-head">
+            <h3>Home Lab</h3>
+            <span class="tech">Ubuntu Server, systemd, AdGuard, Outline VPN</span>
+        </div>
+        <p>A mini-PC running Ubuntu Server with network-wide DNS filtering, a self-hosted VPN, and file sharing over SMB, all managed remotely over SSH.</p>
+    </div>
+
+    <div class="project">
+        <div class="project-head">
+            <h3><a href="https://github.com/YeetingWaterbottle/Image-Sequencer">Image Sequencer</a></h3>
+            <span class="tech">Python, DearPyGui, FFmpeg</span>
+        </div>
+        <p>A desktop app that turns a folder of images into a video, with adjustable resolution and frame rate.</p>
+    </div>
+
+    <h2>Older experiments</h2>
+    <ul class="small-list">
+        <li><a href="DiscordWebhook/index.html">Discord Webhook Sender</a>: send messages and files through a Discord webhook from the browser.</li>
+        <li><a href="return-google-drive-video-player/index.html">Google Drive Video Player</a>: embed a Google Drive video with the older player interface.</li>
     </ul>
+
+    <footer>Last updated September 2026</footer>
+</main>
 </body>
 </html>
